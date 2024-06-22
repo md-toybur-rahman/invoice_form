@@ -11,6 +11,11 @@
 	<link rel="stylesheet" href="assets/output.css">
 	<title>Invoice Form</title>
 	<style>
+		@font-face {
+			font-family: 'Tiro Devanagari Hindi';
+			src: url('path/to/TiroDevanagariHindi.ttf') format('truetype');
+		}
+
 		body {
 			margin: 0;
 			padding: 0;
@@ -63,8 +68,8 @@
 						<label
 							class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center pr-3 py-1"
 							for="no">नं.</label>
-						<input class="flex-grow w-[100px] bg-transparent pl-3 h-6 py-[2px] my-auto text-lg" type="text"
-							id="no" name="no">
+						<input class="flex-grow w-[100px] bg-transparent pl-3 h-6 py-[2px] my-auto text-lg outline-none"
+							type="text" id="no" name="no">
 					</div>
 					<div>
 						<h1 class="text-3xl">ऑफसेट विभाग</h1>
@@ -303,7 +308,7 @@
 								<option class="text-sm" value="पीकॉक ब्लू">पीकॉक ब्लू</option>
 							</select>
 						</div>
-						<div class="flex border border-black items-center justify-center my-auto col-span-2 text-base">
+						<div class="flex border border-black items-center justify-center my-auto h-full col-span-2 text-base bg-[#D9D9D9]">
 							<select class="flex-grow bg-[#D9D9D9]" name="perforation1" id="perforation1">
 								<option class="text-sm" value="परफोरेशन">परफोरेशन</option>
 							</select>
@@ -320,7 +325,7 @@
 								<option class="text-sm" value="पीकॉक ब्लू">पीकॉक ब्लू</option>
 							</select>
 						</div>
-						<div class="flex border border-black items-center justify-center my-auto col-span-2 text-base">
+						<div class="flex border border-black items-center justify-center my-auto col-span-2 h-full text-base bg-[#D9D9D9]">
 							<select class="flex-grow bg-[#D9D9D9]" name="perforation2" id="perforation2">
 								<option class="text-sm" value="परफोरेशन">परफोरेशन</option>
 							</select>
@@ -337,7 +342,7 @@
 								<option class="text-sm" value="पीकॉक ब्लू">पीकॉक ब्लू</option>
 							</select>
 						</div>
-						<div class="flex border border-black items-center justify-center my-auto col-span-2 text-base">
+						<div class="flex border border-black items-center justify-center my-auto col-span-2 h-full text-base bg-[#D9D9D9]">
 							<select class="flex-grow bg-[#D9D9D9]" name="perforation3" id="perforation3">
 								<option class="text-sm" value="परफोरेशन">परफोरेशन</option>
 							</select>
@@ -354,7 +359,7 @@
 								<option class="text-sm" value="पीकॉक ब्लू">पीकॉक ब्लू</option>
 							</select>
 						</div>
-						<div class="flex border border-black items-center justify-center my-auto col-span-2 text-base">
+						<div class="flex border border-black items-center justify-center my-auto col-span-2 h-full text-base bg-[#D9D9D9]">
 							<select class="flex-grow bg-[#D9D9D9]" name="perforation4" id="perforation4">
 								<option class="text-sm" value="परफोरेशन">परफोरेशन</option>
 							</select>
@@ -374,8 +379,8 @@
 									<td class="border border-black px-4 py-2"></td>
 									<td class="border border-black px-4 py-2"></td>
 									<td class="border border-black px-4 py-2">
-										<select class="w-full h-full bg-transparent outline-none">
-											<option value="legal">लीगल - A/3 - 9*17</option>
+										<select class="w-full h-full bg-transparent outline-none" id="legal">
+											<option value="A/3 - 9*17">लीगल - A/3 - 9*17</option>
 										</select>
 									</td>
 								</tr>
@@ -425,7 +430,7 @@
 		<div class="flex items-center justify-between">
 			<button
 				class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-				type="button" onclick="downloadPDF()">Download</button>
+				type="button" onclick="openDownloadModal()">Download</button>
 			<button
 				class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 				type="button" onclick="openPrintModal()">Print Invoice</button>
@@ -436,382 +441,509 @@
 
 
 	<!-- Download Area -->
-	<div id="downloadArea" class="p-5">
-		<div id="downloadContent" class="w-fit mx-auto bg-white">
-			<div class="container inline-block relative mx-auto p-5">
-				<!-- Heading -->
-				<div class="mb-4 bg-[#D9D9D9] flex items-center justify-between gap-8 py-3 px-8">
-					<div class="flex border border-black px-3 items-center justify-center w-fit my-auto">
-						<p class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center pr-3 py-1"
-							for="no">नं.</p>
-						<p class="flex-grow w-[100px] bg-transparent pl-3 h-6 py-[2px] my-auto text-lg" id="D_no"></p>
-					</div>
-					<div>
-						<h1 class="text-3xl">ऑफसेट विभाग</h1>
-					</div>
-					<div class="flex border border-black px-3 items-center justify-center w-fit my-auto">
-						<label
-							class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center pr-3 py-1"
-							for="date">दिनांक</label>
-						<input class="flex-grow bg-transparent pl-3 h-6 py-[2px] my-auto text-lg" type="date" id="date"
-							name="date">
-					</div>
-				</div>
+	<div id="downloadModal"
+		class="modal hidden flex-col fixed top-0 h-[100vh] bg-black bg-opacity-50 justify-center items-center w-full p-5">
+		<div class="modal-content mx-auto w-fit h-[90%] overflow-y-scroll my-auto bg-white">
+			<div class="container border-b px-4 py-2 flex justify-between items-center w-full">
+				<h3 class="font-semibold text-xl text-center">Invoice Download Preview</h3>
+				<button onclick="closeDownloadModal()" class="text-black close-modal">✖</button>
+			</div>
+			<div id="downloadArea" class="p-5">
+				<div id="downloadContent" class="w-fit mx-auto bg-white">
+					<div class="container inline-block relative mx-auto p-5 pb-10">
+						<!-- Heading -->
+						<div class="mb-5 text-center">
+							<h1 class="text-3xl underline">ऑफसेट विभाग</h1>
+						</div>
+						<div class="mb-4 flex items-center justify-between gap-8 px-8">
+							<div class="flex px-3 items-center justify-center w-fit">
+								<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">नं.</p>
+								<p class="flex-grow pl-3 text-sm" id="d_no"></p>
+							</div>
+							<div class="flex items-center justify-center w-fit">
+								<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">दिनांक: </p>
+								<p class="flex-grow pl-3 text-sm" id="d_date"></p>
+							</div>
+						</div>
+						<hr class="mb-4">
+						<div class="flex flex-col gap-5">
+							<!-- 1ST ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="col-span-8 flex items-center justify-center w-full">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">पार्टी का नाम:
+									</p>
+									<p class="flex-grow pl-3 text-sm" id="d_team_name"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-4">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">जब का हेडिंग: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_when_heading"></p>
+								</div>
+							</div>
+							<!-- 2nd ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-6">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">पार्टी का पता:
+									</p>
+									<p class="flex-grow pl-3 text-sm" id="d_party_address"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">फोन: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_phone"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">मो.: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_mobile"></p>
+								</div>
+							</div>
+							<!-- 3rd ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-6">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">पेपर का टाइप: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_paper_type"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">पेपर क्वालिटी:
+									</p>
+									<p class="flex-grow pl-3 text-sm" id="d_paper_quality"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">पेपर साईज: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_paper_size"></p>
+								</div>
+							</div>
+							<!-- 4th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">प्रिटिंग इंक -
+										कलर: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_printing_ink_color"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कलर (1): </p>
+									<p class="flex-grow pl-3 text-sm" id="d_color1"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कलर (2): </p>
+									<p class="flex-grow pl-3 text-sm" id="d_color2"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कलर (3): </p>
+									<p class="flex-grow pl-3 text-sm" id="d_color3"></p>
+								</div>
+							</div>
+							<!-- 5th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">प्रिंट: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_print"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-6">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">रिमार्क: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_remark"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">छपाई संख्या: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_printing_number"></p>
+								</div>
+							</div>
+							<!-- Middle Heading -->
+							<div class="text-center mb-5">
+								<h1 class="text-3xl underline">बाईडिंग विभाग</h1>
+							</div>
 
-				<div class="flex flex-col gap-5">
-					<!-- 1ST ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div class="flex border border-black pr-3 items-center justify-center my-auto col-span-8">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="team_name">पार्टी का नाम</label>
-							<input class="flex-grow bg-transparent pl-3 h-6 py-2 my-auto outline-none" type="text"
-								id="team_name" name="team_name">
-						</div>
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-4 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="when_heading">जब का हेडिंग</label>
-							<select class="flex-grow" name="when_heading" id="when_heading">
-								<option class="text-sm" value="एडमिशन फॉर्म">एडमिशन फॉर्म</option>
-							</select>
-						</div>
-					</div>
-					<!-- 2nd ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div class="flex border border-black pr-3 items-center justify-center my-auto col-span-6">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="party_address">पार्टी का पता</label>
-							<input class="flex-grow bg-transparent pl-3 h-6 py-2 my-auto outline-none" type="text"
-								id="party_address" name="party_address">
-						</div>
-						<div class="flex border border-black pr-3 items-center my-auto col-span-3">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black text-center px-3 py-2 bg-[#D9D9D9]"
-								for="phone">फोन</label>
-							<input class="flex-grow max-w-[200px] bg-transparent pl-3 h-6 py-2 my-auto outline-none"
-								type="text" id="phone" name="phone">
-						</div>
-						<div class="flex border border-black pr-3 items-center my-auto col-span-3">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="mobile">मो.</label>
-							<input class="flex-grow max-w-[200px] bg-transparent pl-3 h-6 py-2 my-auto outline-none"
-								type="text" id="mobile" name="mobile">
-						</div>
-					</div>
-					<!-- 3rd ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-5 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="paper_type">पेपर का टाइप</label>
-							<select class="flex-grow" name="paper_type" id="paper_type">
-								<option class="text-sm" disabled value=""></option>
-							</select>
-						</div>
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-4 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="paper_quality">पेपर क्वालिटी</label>
-							<select class="flex-grow" name="paper_quality" id="paper_quality">
-								<option class="text-sm" value=""></option>
-							</select>
-						</div>
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-3 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="paper_size">पेपर साईज</label>
-							<select class="flex-grow" name="paper_size" id="paper_size">
-								<option class="text-sm" value=""></option>
-							</select>
-						</div>
-					</div>
-					<!-- 4th ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-3 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="printing_ink_color">प्रिटिंग इंक - कलर</label>
-							<select class="flex-grow" name="printing_ink_color" id="printing_ink_color">
-								<option class="text-sm" value="सिंगल">सिंगल</option>
-							</select>
-						</div>
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-3 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="color1">कलर (1)</label>
-							<select class="flex-grow" name="color1" id="color1">
-								<option class="text-sm" value="पीकॉक ब्लू">पीकॉक ब्लू</option>
-							</select>
-						</div>
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-3 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="color2">कलर (2)</label>
-							<select class="flex-grow" name="color2" id="color2">
-								<option class="text-sm" value="पीकॉक ब्लू">पीकॉक ब्लू</option>
-							</select>
-						</div>
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-3 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="color3">कलर (3)</label>
-							<select class="flex-grow" name="color3" id="color3">
-								<option class="text-sm" value="पीकॉक ब्लू">पीकॉक ब्लू</option>
-							</select>
-						</div>
-					</div>
-					<!-- 5th ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-3 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="print">प्रिंट</label>
-							<select class="flex-grow" name="print" id="print">
-								<option class="text-sm" value="आगे पीछे">आगे पीछे</option>
-							</select>
-						</div>
-						<div class="flex border border-black pr-3 items-center justify-center my-auto col-span-6">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="remark">रिमार्क</label>
-							<input class="flex-grow bg-transparent pl-3 h-6 py-2 my-auto outline-none" type="text"
-								id="remark" name="remark">
-						</div>
-						<div class="flex border border-black pr-3 items-center my-auto col-span-3">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black text-center px-3 py-2 bg-[#D9D9D9]"
-								for="printing_number">छपाई संख्या</label>
-							<input class="flex-grow max-w-[200px] bg-transparent pl-3 h-6 py-2 my-auto outline-none"
-								type="text" id="printing_number" name="printing_number">
-						</div>
-					</div>
-					<!-- Middle Heading -->
-					<div class="">
-						<h1 class="text-3xl text-center py-4 bg-[#D9D9D9] w-full">(बाईडिंग विभाग)</h1>
-					</div>
-
-					<!-- 6th ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-3 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="binding">बाईडिंग</label>
-							<select class="flex-grow" name="binding" id="binding">
-								<option class="text-sm" value="साइड बाईडिंग">साइड बाईडिंग</option>
-							</select>
-						</div>
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-3 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="how_binding">बाइडिंग कैसी</label>
-							<select class="flex-grow" name="how_binding" id="how_binding">
-								<option class="text-sm" value="सिंगल कॉपी">सिंगल कॉपी</option>
-							</select>
-						</div>
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-3 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="set">सेट</label>
-							<select class="flex-grow" name="set" id="set">
-								<option class="text-sm" value="50 का सेट">50 का सेट</option>
-							</select>
-						</div>
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-3 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="binding_type">बाईडिंग टाइप</label>
-							<select class="flex-grow" name="binding_type" id="binding_type">
-								<option class="text-sm" value="सादी बाईडिंग">सादी बाईडिंग</option>
-							</select>
-						</div>
-					</div>
-					<!-- 7nd ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div class="flex border border-black pr-3 items-center my-auto col-span-3">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black text-center px-3 py-2 bg-[#D9D9D9]"
-								for="size">साईज</label>
-							<input class="flex-grow max-w-[200px] bg-transparent pl-3 h-6 py-2 my-auto outline-none"
-								value="12*14" type="text" id="size" name="size">
-						</div>
-						<div class="flex border border-black pr-3 items-center my-auto col-span-3">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black text-center px-3 py-2 bg-[#D9D9D9]"
-								for="total_book">टोटल बुक</label>
-							<input class="flex-grow max-w-[200px] bg-transparent pl-3 h-6 py-2 my-auto outline-none"
-								value="" type="text" id="total_book" name="total_book">
-						</div>
-						<div class="flex border border-black pr-3 items-center my-auto col-span-3">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="numbering_from">नंबरिंग कहा से</label>
-							<input class="flex-grow max-w-[200px] bg-transparent pl-3 h-6 py-2 my-auto outline-none"
-								value="01" type="text" id="numbering_from" name="numbering_from">
-						</div>
-						<div class="flex border border-black pr-3 items-center my-auto col-span-3">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="numbring">नंबरिंग कहा तक</label>
-							<input class="flex-grow max-w-[200px] bg-transparent pl-3 h-6 py-2 my-auto outline-none"
-								value="100" type="text" id="numbring" name="numbring">
-						</div>
-					</div>
-					<!-- 8th ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-10 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="copy_color1">कॉपी कलर (1)</label>
-							<select class="flex-grow" name="copy_color1" id="copy_color1">
-								<option class="text-sm" value="पीकॉक ब्लू">पीकॉक ब्लू</option>
-							</select>
-						</div>
-						<div class="flex border border-black items-center justify-center my-auto col-span-2 text-base">
-							<select class="flex-grow bg-[#D9D9D9]" name="perforation1" id="perforation1">
-								<option class="text-sm" value="परफोरेशन">परफोरेशन</option>
-							</select>
-						</div>
-					</div>
-					<!-- 9th ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-10 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="copy_color2">कॉपी कलर (2)</label>
-							<select class="flex-grow" name="copy_color2" id="copy_color2">
-								<option class="text-sm" value="पीकॉक ब्लू">पीकॉक ब्लू</option>
-							</select>
-						</div>
-						<div class="flex border border-black items-center justify-center my-auto col-span-2 text-base">
-							<select class="flex-grow bg-[#D9D9D9]" name="perforation2" id="perforation2">
-								<option class="text-sm" value="परफोरेशन">परफोरेशन</option>
-							</select>
-						</div>
-					</div>
-					<!-- 10th ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-10 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="copy_color3">कॉपी कलर (3)</label>
-							<select class="flex-grow" name="copy_color3" id="copy_color3">
-								<option class="text-sm" value="पीकॉक ब्लू">पीकॉक ब्लू</option>
-							</select>
-						</div>
-						<div class="flex border border-black items-center justify-center my-auto col-span-2 text-base">
-							<select class="flex-grow bg-[#D9D9D9]" name="perforation3" id="perforation3">
-								<option class="text-sm" value="परफोरेशन">परफोरेशन</option>
-							</select>
-						</div>
-					</div>
-					<!-- 11th ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div
-							class="flex border border-black pr-3 items-center justify-center my-auto col-span-10 text-base">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black w-fit text-center px-3 py-2 bg-[#D9D9D9]"
-								for="copy_color4">कॉपी कलर (4)</label>
-							<select class="flex-grow" name="copy_color4" id="copy_color4">
-								<option class="text-sm" value="पीकॉक ब्लू">पीकॉक ब्लू</option>
-							</select>
-						</div>
-						<div class="flex border border-black items-center justify-center my-auto col-span-2 text-base">
-							<select class="flex-grow bg-[#D9D9D9]" name="perforation4" id="perforation4">
-								<option class="text-sm" value="परफोरेशन">परफोरेशन</option>
-							</select>
-						</div>
-					</div>
-					<div class="container mx-auto mt-8">
-						<table class="min-w-full border-collapse">
-							<thead class="bg-gray-200">
-								<tr>
-									<th class="border border-black px-4 py-2 w-7/12">पेपर</th>
-									<th class="border border-black px-4 py-2 w-2/12">शीट</th>
-									<th class="border border-black px-4 py-2 w-3/12">साइज</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="table-row">
-									<td class="border border-black px-4 py-2"></td>
-									<td class="border border-black px-4 py-2"></td>
-									<td class="border border-black px-4 py-2">
-										<select class="w-full h-full bg-transparent outline-none">
-											<option value="legal">लीगल - A/3 - 9*17</option>
-										</select>
-									</td>
-								</tr>
-								<tr class="table-row">
-									<td class="border border-black px-4 py-2"></td>
-									<td class="border border-black px-4 py-2"></td>
-									<td class="border border-black px-4 py-2"></td>
-								</tr>
-								<tr class="table-row">
-									<td class="border border-black px-4 py-2"></td>
-									<td class="border border-black px-4 py-2"></td>
-									<td class="border border-black px-4 py-2"></td>
-								</tr>
-								<tr class="table-row">
-									<td class="border border-black px-4 py-2"></td>
-									<td class="border border-black px-4 py-2"></td>
-									<td class="border border-black px-4 py-2"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<!-- 13th ROW -->
-					<div class="grid grid-cols-12 gap-5">
-						<div class="col-span-8"></div>
-						<div class="flex border border-black pr-3 items-center my-auto col-span-4">
-							<label
-								class="block text-gray-700 text-sm font-bold border-r border-black text-center px-3 py-2 bg-[#D9D9D9]"
-								for="total_amount">टोटल अमाउंट</label>
-							<span class="pl-4">₹</span>
-							<input class="flex-grow max-w-[200px] bg-transparent pl-3 h-6 py-2 my-auto outline-none"
-								value="" type="text" id="total_amount" name="total_amount">
-						</div>
-					</div>
-					<!-- 13th ROW -->
-					<div class="grid grid-cols-12">
-						<div class="col-span-12">
-							<label class="block text-gray-700 text-sm font-bold py-2 " for="note">रिमार्क/नोट</label>
-							<textarea
-								class="w-full h-[208px] bg-transparent pl-3 py-2 my-auto outline-none border border-black resize-none"
-								name="note" id="note"></textarea>
+							<!-- 6th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">बाईडिंग: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_binding"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">बाइडिंग कैसी: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_how_binding"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">सेट: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_set"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">बाईडिंग टाइप: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_binding_type"></p>
+								</div>
+							</div>
+							<!-- 7nd ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">साईज: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_size"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">टोटल बुक: </p>
+									<p class="flex-grow pl-3 text-sm" id="d_total_book"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">नंबरिंग कहा से:
+									</p>
+									<p class="flex-grow pl-3 text-sm" id="d_numbering_from"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">नंबरिंग कहा तक:
+									</p>
+									<p class="flex-grow pl-3 text-sm" id="d_numbring"></p>
+								</div>
+							</div>
+							<!-- 8th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-9">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कॉपी कलर (1): </p>
+									<p class="flex-grow pl-3 text-sm" id="d_copy_color1"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="flex-grow pl-3 text-sm" id="d_perforation1"></p>
+								</div>
+							</div>
+							<!-- 9th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-9">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कॉपी कलर (2): </p>
+									<p class="flex-grow pl-3 text-sm" id="d_copy_color2"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="flex-grow pl-3 text-sm" id="d_perforation2"></p>
+								</div>
+							</div>
+							<!-- 10th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-9">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कॉपी कलर (3): </p>
+									<p class="flex-grow pl-3 text-sm" id="d_copy_color3"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="flex-grow pl-3 text-sm" id="d_perforation3"></p>
+								</div>
+							</div>
+							<!-- 11th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-9">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कॉपी कलर (4): </p>
+									<p class="flex-grow pl-3 text-sm" id="d_copy_color4"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="flex-grow pl-3 text-sm" id="d_perforation4"></p>
+								</div>
+							</div>
+							<div class="container mx-auto mt-8">
+								<table class="min-w-full border-collapse">
+									<thead class="bg-gray-200">
+										<tr>
+											<th class="border border-black px-4 py-2 w-7/12">पेपर</th>
+											<th class="border border-black px-4 py-2 w-2/12">शीट</th>
+											<th class="border border-black px-4 py-2 w-3/12">साइज</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="table-row">
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2">
+												<p class="flex-grow pl-3 text-sm" id="d_legal"></p>
+											</td>
+										</tr>
+										<tr class="table-row">
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+										</tr>
+										<tr class="table-row">
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+										</tr>
+										<tr class="table-row">
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- 13th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="col-span-8"></div>
+								<div class="flex items-center justify-center w-fit col-span-4">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">टोटल अमाउंट: </p>
+									<div class="flex items-center">
+										<span class="pl-4">₹</span>
+										<p class="flex-grow pl-3 text-sm" id="d_total_amount"></p>
+									</div>
+								</div>
+							</div>
+							<!-- 13th ROW -->
+							<div class="grid grid-cols-12">
+								<div class="col-span-12">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3 mb-2">रिमार्क/नोट:
+									</p>
+									<p class="flex-grow text-sm" id="d_note"></p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="text-center mt-4 mb-10">
+				<button
+					class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+					onclick="downloadPDF()">Download</button>
+			</div>
 		</div>
 	</div>
+
+
 	<div id="printModal"
-		class="modal hidden absolute top-0 h-fit bg-black bg-opacity-50 justify-center items-center p-5 overflow-y-scroll w-full">
-		<div class="modal-content mx-auto max-w-[1748px] w-full bg-white">
+		class="modal hidden fixed top-0 h-[100vh] overflow-y-scroll bg-black bg-opacity-50 justify-center items-center w-full p-5">
+		<div class="modal-content mx-auto w-fit bg-white">
 			<div class="border-b px-4 py-2 flex justify-between items-center">
 				<h3 class="font-semibold text-xl text-center">Invoice Print Preview</h3>
 				<button onclick="closePrintModal()" class="text-black close-modal">✖</button>
 			</div>
-			<div id="printArea" class="p-5 bg-white">
-				<div id="printContent">
-					<!-- Content for printing will be cloned here from the form -->
+			<div id="printArea" class="p-5">
+				<div id="printContent" class="w-fit mx-auto bg-white">
+					<div class="container inline-block relative mx-auto p-5 pb-10">
+						<!-- Heading -->
+						<div class="mb-5 text-center">
+							<h1 class="text-3xl underline">ऑफसेट विभाग</h1>
+						</div>
+						<div class="mb-4 flex items-center justify-between gap-8 px-8">
+							<div class="flex px-3 items-center justify-center w-fit">
+								<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">नं.</p>
+								<p class="flex-grow pl-3 text-sm" id="p_no"></p>
+							</div>
+							<div class="flex items-center justify-center w-fit">
+								<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">दिनांक: </p>
+								<p class="flex-grow pl-3 text-sm" id="p_date"></p>
+							</div>
+						</div>
+						<hr class="mb-4">
+						<div class="flex flex-col gap-5">
+							<!-- 1ST ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="col-span-8 flex items-center justify-center w-full">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">पार्टी का नाम:
+									</p>
+									<p class="flex-grow pl-3 text-sm" id="p_team_name"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-4">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">जब का हेडिंग: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_when_heading"></p>
+								</div>
+							</div>
+							<!-- 2nd ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-6">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">पार्टी का पता:
+									</p>
+									<p class="flex-grow pl-3 text-sm" id="p_party_address"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">फोन: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_phone"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">मो.: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_mobile"></p>
+								</div>
+							</div>
+							<!-- 3rd ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-6">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">पेपर का टाइप: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_paper_type"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">पेपर क्वालिटी:
+									</p>
+									<p class="flex-grow pl-3 text-sm" id="p_paper_quality"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">पेपर साईज: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_paper_size"></p>
+								</div>
+							</div>
+							<!-- 4th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">प्रिटिंग इंक -
+										कलर: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_printing_ink_color"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कलर (1): </p>
+									<p class="flex-grow pl-3 text-sm" id="p_color1"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कलर (2): </p>
+									<p class="flex-grow pl-3 text-sm" id="p_color2"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कलर (3): </p>
+									<p class="flex-grow pl-3 text-sm" id="p_color3"></p>
+								</div>
+							</div>
+							<!-- 5th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">प्रिंट: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_print"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-6">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">रिमार्क: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_remark"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">छपाई संख्या: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_printing_number"></p>
+								</div>
+							</div>
+							<!-- Middle Heading -->
+							<div class="text-center mb-5">
+								<h1 class="text-3xl underline">बाईडिंग विभाग</h1>
+							</div>
+
+							<!-- 6th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">बाईडिंग: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_binding"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">बाइडिंग कैसी: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_how_binding"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">सेट: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_set"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">बाईडिंग टाइप: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_binding_type"></p>
+								</div>
+							</div>
+							<!-- 7nd ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">साईज: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_size"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">टोटल बुक: </p>
+									<p class="flex-grow pl-3 text-sm" id="p_total_book"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">नंबरिंग कहा से:
+									</p>
+									<p class="flex-grow pl-3 text-sm" id="p_numbering_from"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">नंबरिंग कहा तक:
+									</p>
+									<p class="flex-grow pl-3 text-sm" id="p_numbring"></p>
+								</div>
+							</div>
+							<!-- 8th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-9">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कॉपी कलर (1): </p>
+									<p class="flex-grow pl-3 text-sm" id="p_copy_color1"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="flex-grow pl-3 text-sm" id="p_perforation1"></p>
+								</div>
+							</div>
+							<!-- 9th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-9">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कॉपी कलर (2): </p>
+									<p class="flex-grow pl-3 text-sm" id="p_copy_color2"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="flex-grow pl-3 text-sm" id="p_perforation2"></p>
+								</div>
+							</div>
+							<!-- 10th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-9">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कॉपी कलर (3): </p>
+									<p class="flex-grow pl-3 text-sm" id="p_copy_color3"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="flex-grow pl-3 text-sm" id="p_perforation3"></p>
+								</div>
+							</div>
+							<!-- 11th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="flex items-center justify-center w-fit col-span-9">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">कॉपी कलर (4): </p>
+									<p class="flex-grow pl-3 text-sm" id="p_copy_color4"></p>
+								</div>
+								<div class="flex items-center justify-center w-fit col-span-3">
+									<p class="flex-grow pl-3 text-sm" id="p_perforation4"></p>
+								</div>
+							</div>
+							<div class="container mx-auto mt-8">
+								<table class="min-w-full border-collapse">
+									<thead class="bg-gray-200">
+										<tr>
+											<th class="border border-black px-4 py-2 w-7/12">पेपर</th>
+											<th class="border border-black px-4 py-2 w-2/12">शीट</th>
+											<th class="border border-black px-4 py-2 w-3/12">साइज</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="table-row">
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2">
+												<p class="flex-grow pl-3 text-sm" id="p_legal"></p>
+											</td>
+										</tr>
+										<tr class="table-row">
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+										</tr>
+										<tr class="table-row">
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+										</tr>
+										<tr class="table-row">
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+											<td class="border border-black px-4 py-2"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- 13th ROW -->
+							<div class="grid grid-cols-12 gap-5">
+								<div class="col-span-8"></div>
+								<div class="flex items-center justify-center w-fit col-span-4">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3">टोटल अमाउंट: </p>
+									<div class="flex items-center">
+										<span class="pl-4">₹</span>
+										<p class="flex-grow pl-3 text-sm" id="p_total_amount"></p>
+									</div>
+								</div>
+							</div>
+							<!-- 13th ROW -->
+							<div class="grid grid-cols-12">
+								<div class="col-span-12">
+									<p class="text-gray-700 text-sm font-bold w-fit text-center pr-3 mb-2">रिमार्क/नोट:
+									</p>
+									<p class="flex-grow text-sm" id="p_note"></p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="text-center mt-4 mb-10">
@@ -825,12 +957,54 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
 	<script>
+
 		const { jsPDF } = window.jspdf;
 
+		function openDownloadModal() {
+			const downloadModal = document.getElementById('downloadModal');
+			document.getElementById('d_no').innerText = document.getElementById('no').value;
+			document.getElementById('d_team_name').innerText = document.getElementById('team_name').value;
+			document.getElementById('d_date').innerText = document.getElementById('date').value;
+			document.getElementById('d_when_heading').innerText = document.getElementById('when_heading').value;
+			document.getElementById('d_party_address').innerText = document.getElementById('party_address').value;
+			document.getElementById('d_phone').innerText = document.getElementById('phone').value;
+			document.getElementById('d_mobile').innerText = document.getElementById('mobile').value;
+			document.getElementById('d_paper_type').innerText = document.getElementById('paper_type').value;
+			document.getElementById('d_paper_quality').innerText = document.getElementById('paper_quality').value;
+			document.getElementById('d_paper_size').innerText = document.getElementById('paper_size').value;
+			document.getElementById('d_printing_ink_color').innerText = document.getElementById('printing_ink_color').value;
+			document.getElementById('d_color1').innerText = document.getElementById('color1').value;
+			document.getElementById('d_color2').innerText = document.getElementById('color2').value;
+			document.getElementById('d_color3').innerText = document.getElementById('color3').value;
+			document.getElementById('d_print').innerText = document.getElementById('print').value;
+			document.getElementById('d_remark').innerText = document.getElementById('remark').value;
+			document.getElementById('d_printing_number').innerText = document.getElementById('printing_number').value;
+			document.getElementById('d_binding').innerText = document.getElementById('binding').value;
+			document.getElementById('d_how_binding').innerText = document.getElementById('how_binding').value;
+			document.getElementById('d_set').innerText = document.getElementById('set').value;
+			document.getElementById('d_binding_type').innerText = document.getElementById('binding_type').value;
+			document.getElementById('d_size').innerText = document.getElementById('size').value;
+			document.getElementById('d_total_book').innerText = document.getElementById('total_book').value;
+			document.getElementById('d_numbering_from').innerText = document.getElementById('numbering_from').value;
+			document.getElementById('d_numbring').innerText = document.getElementById('numbring').value;
+			document.getElementById('d_copy_color1').innerText = document.getElementById('copy_color1').value;
+			document.getElementById('d_perforation1').innerText = document.getElementById('perforation1').value;
+			document.getElementById('d_copy_color2').innerText = document.getElementById('copy_color2').value;
+			document.getElementById('d_perforation2').innerText = document.getElementById('perforation2').value;
+			document.getElementById('d_copy_color3').innerText = document.getElementById('copy_color3').value;
+			document.getElementById('d_perforation3').innerText = document.getElementById('perforation3').value;
+			document.getElementById('d_copy_color4').innerText = document.getElementById('copy_color4').value;
+			document.getElementById('d_perforation4').innerText = document.getElementById('perforation4').value;
+			document.getElementById('d_legal').innerText = document.getElementById('legal').value;
+			document.getElementById('d_total_amount').innerText = document.getElementById('total_amount').value;
+			document.getElementById('d_note').innerText = document.getElementById('note').value;
+			// const printContent = document.getElementById('printContent');
+			// printContent.innerHTML = document.getElementById('invoiceForm').innerHTML;
+			downloadModal.classList.add("flex");
+			downloadModal.classList.remove("hidden");
+		}
 		function downloadPDF() {
 			const downloadContent = document.getElementById('downloadContent');
-			document.getElementById('D_no').innerText = document.getElementById('no').value
-			// downloadContent.innerHTML = document.getElementById('invoiceForm').innerHTML;
 			html2canvas(downloadContent).then(canvas => {
 				const imgData = canvas.toDataURL('image/png');
 				const pdf = new jsPDF({
@@ -847,15 +1021,48 @@
 
 		function openPrintModal() {
 			const printModal = document.getElementById('printModal');
-			const printContent = document.getElementById('printContent');
-			printContent.innerHTML = document.getElementById('invoiceForm').innerHTML;
+			document.getElementById('p_no').innerText = document.getElementById('no').value;
+			document.getElementById('p_team_name').innerText = document.getElementById('team_name').value;
+			document.getElementById('p_date').innerText = document.getElementById('date').value;
+			document.getElementById('p_when_heading').innerText = document.getElementById('when_heading').value;
+			document.getElementById('p_party_address').innerText = document.getElementById('party_address').value;
+			document.getElementById('p_phone').innerText = document.getElementById('phone').value;
+			document.getElementById('p_mobile').innerText = document.getElementById('mobile').value;
+			document.getElementById('p_paper_type').innerText = document.getElementById('paper_type').value;
+			document.getElementById('p_paper_quality').innerText = document.getElementById('paper_quality').value;
+			document.getElementById('p_paper_size').innerText = document.getElementById('paper_size').value;
+			document.getElementById('p_printing_ink_color').innerText = document.getElementById('printing_ink_color').value;
+			document.getElementById('p_color1').innerText = document.getElementById('color1').value;
+			document.getElementById('p_color2').innerText = document.getElementById('color2').value;
+			document.getElementById('p_color3').innerText = document.getElementById('color3').value;
+			document.getElementById('p_print').innerText = document.getElementById('print').value;
+			document.getElementById('p_remark').innerText = document.getElementById('remark').value;
+			document.getElementById('p_printing_number').innerText = document.getElementById('printing_number').value;
+			document.getElementById('p_binding').innerText = document.getElementById('binding').value;
+			document.getElementById('p_how_binding').innerText = document.getElementById('how_binding').value;
+			document.getElementById('p_set').innerText = document.getElementById('set').value;
+			document.getElementById('p_binding_type').innerText = document.getElementById('binding_type').value;
+			document.getElementById('p_size').innerText = document.getElementById('size').value;
+			document.getElementById('p_total_book').innerText = document.getElementById('total_book').value;
+			document.getElementById('p_numbering_from').innerText = document.getElementById('numbering_from').value;
+			document.getElementById('p_numbring').innerText = document.getElementById('numbring').value;
+			document.getElementById('p_copy_color1').innerText = document.getElementById('copy_color1').value;
+			document.getElementById('p_perforation1').innerText = document.getElementById('perforation1').value;
+			document.getElementById('p_copy_color2').innerText = document.getElementById('copy_color2').value;
+			document.getElementById('p_perforation2').innerText = document.getElementById('perforation2').value;
+			document.getElementById('p_copy_color3').innerText = document.getElementById('copy_color3').value;
+			document.getElementById('p_perforation3').innerText = document.getElementById('perforation3').value;
+			document.getElementById('p_copy_color4').innerText = document.getElementById('copy_color4').value;
+			document.getElementById('p_perforation4').innerText = document.getElementById('perforation4').value;
+			document.getElementById('p_legal').innerText = document.getElementById('legal').value;
+			document.getElementById('p_total_amount').innerText = document.getElementById('total_amount').value;
+			document.getElementById('p_note').innerText = document.getElementById('note').value;
+			// const printContent = document.getElementById('printContent');
+			// printContent.innerHTML = document.getElementById('invoiceForm').innerHTML;
 			printModal.classList.add("flex");
 			printModal.classList.remove("hidden");
 		}
-		function downloadContent() {
-			const downloadContent = document.getElementById('downloadContent');
-			downloadContent.innerHTML = document.getElementById('invoiceForm').innerHTML;
-		}
+
 		function printPDF() {
 			const printArea = document.getElementById('printArea');
 			html2canvas(printArea).then(canvas => {
@@ -876,6 +1083,10 @@
 		function closePrintModal() {
 			document.getElementById('printModal').classList.remove("flex");
 			document.getElementById('printModal').classList.add("hidden");
+		}
+		function closeDownloadModal() {
+			document.getElementById('downloadModal').classList.remove("flex");
+			document.getElementById('downloadModal').classList.add("hidden");
 		}
 
 		// Close modal if clicked outside of modal content
